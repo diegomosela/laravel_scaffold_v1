@@ -1,0 +1,28 @@
+$colors: (
+    "blue":       #54a0ff,
+    "indigo":     #341f97,
+    "purple":     #5f27cd,
+    "pink":       #ff9ff3,
+    "red":        #ff6b6b,
+    "orange":     #ff9f43,
+    "yellow":     #feca57,
+    "green":      #1dd1a1,
+    "teal":       #10ac84,
+    "cyan":       #00d2d3,
+    "white":      #FFFFFF,
+    "gray":       #c8d6e5,
+    "gray-dark":  #8395a7
+);
+
+$theme-colors: (
+    "primary":      #54a0ff,
+    "secondary":    #c8d6e5,
+    "success":      #1dd1a1,
+    "info":         #2e86de,
+    "warning":      #feca57,
+    "danger":       #ff6b6b,
+    "light":        #222f3e,
+    "dark":         rgb(25, 39, 52),
+);
+
+@import '~bootstrap/scss/bootstrap';
