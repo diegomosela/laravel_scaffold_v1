@@ -154,22 +154,22 @@ class UsersController extends Controller
      * 
      * @param  string $email
      */
-    public function password_post( Request $req ) {
+    public function password_post( Request $r ) {
 
-        $validator = Validator::make($req->all(), [
+        $validator = Validator::make($r->all(), [
             'email'             => 'required|email',
         ]);
 
         if( $validator->fails() ) {
 
-            return $this->resp(false, $validator->errors());
+            return $this->resp(false, $validator->errors()-> first());
 
         } else {
 
             // secret random token
             $token  = token_public( date('YmdHis') );
 
-            $user   = User::where('email', $req->email)
+            $user   = User::where('email', $r->email)
                 ->where('status', 1)
                 ->first();
 
@@ -214,6 +214,8 @@ class UsersController extends Controller
 
         if( $token ) {
 
+            $data['user']   = User::find( $token->user_id );
+
             // verifica se token ainda é válido (2 dias)
             if( date('Y-m-d H:i:s', strtotime('-2 days') ) >= $token->created_at )
                 return $this->return(false, 'sua chave secreta expirou, gere uma nova para continuar', 'users/login');
@@ -237,9 +239,9 @@ class UsersController extends Controller
      * 
      * @param  string $password, $password_confirm
      */
-    public function password_recovery_post( Request $req ) {
+    public function password_recovery_post( Request $r, $token ) {
 
-        $token  = \App\Models\UserToken::where('token', $req->token)
+        $token  = \App\Models\UserToken::where('token', $token )
             ->first();
 
         if( $token ) {
@@ -249,20 +251,20 @@ class UsersController extends Controller
                 return $this->resp(false, 'sua chave secreta expirou, gere uma nova para continuar');
 
             // form validator
-            $validator = Validator::make($req->all(), [
+            $validator = Validator::make($r->all(), [
                 'password'          => 'nullable|min:6',
                 'password_confirm'  => 'required_with:password|same:password|min:6'
             ]);
 
             if( $validator->fails() ) {
 
-                return $this->resp(false, $validator->errors());
+                return $this->resp(false, $validator->errors()-> first());
 
             } else {
 
                 // busca pelo usuário
                 $user               = User::find( $token->user_id );
-                $user->password     = token_secret( $req->password );
+                $user->password     = Hash::make( $r->password );
 
                 // atualiza usuário
                 if( $user->save() ) {

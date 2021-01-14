@@ -51,9 +51,7 @@
 				{{ Form::open(['url' => 'users/password', 'class' => 'ajax col-12 text-dark text-left w-100']) }}
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Recuperar senha</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
 						<p>
@@ -65,7 +63,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 						<button type="submit" class="btn btn-primary">Recuperar</button>
 					</div>
 				{{ Form::close() }}
