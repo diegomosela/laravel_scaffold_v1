@@ -11,4 +11,10 @@ class Video extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'videos';
+
+   	public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
+
 }

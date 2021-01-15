@@ -10,9 +10,6 @@ body, html {
 	font-size: 16px;
 	background-color: var(--bs-white);
 }
-* {
-	color: var(--bs-dark);
-}
 
 .font-size-10 {font-size: 0.70rem;}
 .font-size-12 {font-size: 0.80rem;}
@@ -71,4 +68,7 @@ body > #loading {
 body > #loading * {
 	color: #FFF !important;
 	fill: #FFF !important;
+}
+svg.svg-inline--fa path {
+	color: #FFF !important;
 }

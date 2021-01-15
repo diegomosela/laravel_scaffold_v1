@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS `videos` (
   `youtube` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Código do vídeo do youtube',
   `description` text COLLATE utf8mb4_unicode_ci COMMENT 'Descrição do vídeo',
   `created_at` timestamp NOT NULL,
-  `cupdated_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `videos_user_id_foreign` (`user_id`)

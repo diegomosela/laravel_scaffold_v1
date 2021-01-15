@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Session;
 
 class SessionAuthTeach
 {
@@ -22,7 +23,9 @@ class SessionAuthTeach
         //SENÃO, REDIRECIONA USUÁRIO
         } else {
 
-            return redirect('/users/logout'); exit;
+            Session::flash('danger', 'Você não possui acesso a essa página');
+
+            return redirect('dashboard');
 
         }
 

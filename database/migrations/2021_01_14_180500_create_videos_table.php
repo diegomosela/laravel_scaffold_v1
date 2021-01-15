@@ -21,7 +21,7 @@ class CreateVideosTable extends Migration
             $table->string('youtube', 255)->comment('Código do vídeo do youtube');
             $table->text('description')->nullable()->comment('Descrição do vídeo');
             $table->timestamp('created_at');
-            $table->timestamp('cupdated_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
             $table->softDeletes('deleted_at', 0);
             $table->foreign('user_id')->references('id')->on('users');
             $table->engine = 'MyISAM';

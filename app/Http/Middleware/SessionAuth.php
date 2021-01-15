@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Session;
 
 class SessionAuth
 {
@@ -24,7 +25,9 @@ class SessionAuth
         //SENÃO, REDIRECIONA USUÁRIO
         } else {
 
-            return redirect('/users/logout'); exit;
+            Session::flash('danger', 'Realize o login antes de continuar');
+
+            return redirect('/users/logout');
 
         }
 
@@ -37,7 +40,6 @@ class SessionAuth
 
         $log = [
             'user_id'       => $sessionUserId,
-            'role'          => session('user')['role'] ?? NULL,
             'url'           => $request->path(),
             'method'        => $request->method(),
             'ip'            => $request->ip(),

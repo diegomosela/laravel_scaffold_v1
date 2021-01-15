@@ -7,15 +7,14 @@
 * 2020 (Use mask)
 */
 
-// TOKEN PÚLICO - PODE SER ALTERADO
-function token_public($string = false) {
+/* RETORNA SOMENTE O ID DO VÍDEO */
+function youtube_id($url) {
 
-	$string 	= md5( rand(0, 9999) . $string . rand(0, 9999) );
-	$string 	= md5( date('YmdHis') . $string );
-
-	return $string;
-
+    preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+    return $matches[0] ?: false;
+            
 }
+
 
 /* DATE & TIME */
 if ( !function_exists('date_time_complete')) {

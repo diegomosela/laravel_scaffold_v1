@@ -11,4 +11,7 @@ class VideoView extends Model
     use HasFactory;
 
     protected $table = 'videos_views';
+
+    public $timestamps = false;
+    
 }

@@ -11604,10 +11604,6 @@ html {
   background-color: var(--bs-white);
 }
 
-* {
-  color: var(--bs-dark);
-}
-
 .font-size-10 {
   font-size: 0.7rem;
 }
@@ -11726,5 +11722,9 @@ body > #loading {
 body > #loading * {
   color: #FFF !important;
   fill: #FFF !important;
+}
+
+svg.svg-inline--fa path {
+  color: #FFF !important;
 }
 

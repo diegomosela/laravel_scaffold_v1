@@ -280,4 +280,17 @@ class UsersController extends Controller
 
     }
 
+    /**
+     * Listagem de alunos ativos no sistema
+     */
+    public function list() {
+
+        $data['seo']['title']   = 'Lista de alunos';
+
+        $data['users']          = User::where('role_id', '<', '2')
+            ->get();
+
+        return $this->load_view('users.list', $data);
+
+    }
 }
