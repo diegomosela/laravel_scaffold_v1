@@ -20,7 +20,7 @@
 						</div>
 
 						<div class="form-group mb-3">
-							<label for="iEmail">Usuário</label>
+							<label for="iEmail">Email</label>
 							<input id="iEmail" type="email" class="form-control" required name="email">
 						</div>
 

@@ -37,14 +37,17 @@ class UsersController extends Controller
         // validator - laravel
         if (isset($validator) && $validator->fails()) {
 
-            return $this->resp(false, $validator->errors(), 400);
+            return $this->resp(false, $validator->errors()->first(), 400);
 
         } else {
 
             $username   = strtolower( trim ( $r->email ) );
 
-            $user       = User::where('email', $username)
-                ->where('status', 1)
+            $user       = User::where('status', 1)
+                ->where(function($query) use ($username) {
+                    $query->where('email', $username)
+                        ->orWhere('username', $username);
+                })
                 ->first();
 
             if( $user ) {
@@ -112,15 +115,15 @@ class UsersController extends Controller
         $validator = Validator::make($r->all(), $rules);
 
         // validator - laravel
-        if (isset($validator) && $validator->fails()) {
+        if (isset($validator) && $validator->fails()->first()) {
 
-            return $this->resp(false, $validator->errors(), 400);
+            return $this->resp(false, $validator->errors()->first(), 400);
 
         } else {
 
             // trata dados para inserir
             $user                       = new User;
-            $user->public_key           = token_public( $r->email );
+            $user->public_key           = md5( uniqid() . $r->email );
             $user->role_id              = 1;
             $user->name                 = ucfirst($r->name);
             $user->username             = explode('@', $r->email)[0] . rand(11111,99999);
@@ -183,7 +186,7 @@ class UsersController extends Controller
         // validator - laravel
         if (isset($validator) && $validator->fails()) {
 
-            return $this->resp(false, $validator->errors(), 400);
+            return $this->resp(false, $validator->errors()->first(), 400);
 
         } else {
 

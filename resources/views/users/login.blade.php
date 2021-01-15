@@ -15,8 +15,8 @@
 					{{ Form::open(['url' => 'users/login', 'class' => 'ajax col-12 text-dark text-left']) }}
 
 						<div class="form-group mb-3">
-							<label for="iEmail">Usuário</label>
-							<input id="iEmail" type="email" class="form-control" required name="email">
+							<label for="iEmail">Usuário ou Email</label>
+							<input id="iEmail" type="text" class="form-control" required name="email">
 						</div>
 
 						<div class="form-group mb-3">
