@@ -11724,6 +11724,7 @@ body > #loading * {
   fill: #FFF !important;
 }
 
+ul li > a.nav-link,
 svg.svg-inline--fa path {
   color: #FFF !important;
 }

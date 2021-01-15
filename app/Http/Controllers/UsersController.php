@@ -149,6 +149,77 @@ class UsersController extends Controller
     }
 
     /**
+     * Edit (GET)
+     */
+    public function edit() {
+
+        $sessionUserId          = session('user')['id'];
+
+        $data['seo']['title']   = 'Atualizar conta';
+
+        $data['user']           = User::find($sessionUserId);
+
+        return $this->load_view('users/edit', $data);
+
+    }
+
+    /**
+     * Update (POST)
+     *
+     * @param  \Illuminate\Http\Request  $r
+     */
+    public function update(Request $r) {
+
+        $sessionUserId      = session('user')['id'];
+
+        $rules              = [
+            "name"              => "required|min:5|max:50",
+            "username"          => "required|min:3|max:30|unique:users,username,{$sessionUserId}",
+            "email"             => "required|max:200|email|unique:users,email,{$sessionUserId}",
+            "password"          => "nullable|min:6",
+        ];
+        $validator = Validator::make($r->all(), $rules);
+
+        // validator - laravel
+        if (isset($validator) && $validator->fails()) {
+
+            return $this->resp(false, $validator->errors(), 400);
+
+        } else {
+
+            // trata dados para inserir
+            $user                       = User::find($sessionUserId);
+            $user->name                 = ucfirst($r->name);
+            $user->username             = strtolower( trim( $r->username) );
+            $user->email                = strtolower( trim( $r->email ) );
+
+            // atualiza senha somente se vier campo
+            if( $user->password )
+                $user->password         = Hash::make( $r->password );
+
+            if( $user->save() ) {
+                
+                // Atualiza a sessão
+                session([
+                    'user' => [
+                        'id'        => $user->id,
+                        'role'      => $user->role_id,
+                        'name'      => $user->name,
+                        'username'  => $user->username,
+                        'email'     => $user->email
+                    ]
+                ]);
+                
+                return $this->resp(true, 'conta atualizada com sucesso', 'users/edit');
+
+            } else return $this->resp(false, 'houve um erro ao inserir novo usuário');
+
+        }
+
+    }
+
+
+    /**
      * Gera um token para usuário recuperar senha
      * [POST] /users/password
      * 
@@ -283,12 +354,23 @@ class UsersController extends Controller
     /**
      * Listagem de alunos ativos no sistema
      */
-    public function list() {
+    public function list(Request $r) {
 
         $data['seo']['title']   = 'Lista de alunos';
 
-        $data['users']          = User::where('role_id', '<', '2')
-            ->get();
+        $user                   = User::where('role_id', '<', '2');
+
+        // Se vier busca, pesquisa nas condições
+        if( $r->search ):
+            $user->where(function($query) use ($r) {
+                $query->where('name', "like", "%{$r->search}%")
+                    ->orWhere('email', "like", "%{$r->search}%")
+                    ->orWhere('id', "like", "%{$r->search}%");
+            });
+        endif;
+            
+        $data['users']          = $user->get();
+        $data['r']              = $r;
 
         return $this->load_view('users.list', $data);
 

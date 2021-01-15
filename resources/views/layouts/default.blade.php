@@ -26,7 +26,7 @@
 <body>
 
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap py-3 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 ms-5 ms-md-0" href="#">
             {{ env('APP_NAME') }}
         </a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,14 +46,14 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="min-height: calc(100vh - 72px)">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ url('dashboard') }}">
+                        <li>
+                            <a class="nav-link" aria-current="page" href="{{ url('dashboard') }}">
                                 <i class="fas fa-home text-light"></i>
                                 Home
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('users/update') }}">
+                        <li>
+                            <a class="nav-link" href="{{ url('users/edit') }}">
                                 <i class="fas fa-user text-light"></i>
                                 Meu Perfil
                             </a>
@@ -61,22 +61,22 @@
                     </ul>
                     @if( session('user')['role'] >= 2 ).
                         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-white">
-                            <span>Administração</span>
+                            <span class="font-weight-bold">Administração</span>
                         </h6>
                         <ul class="nav flex-column mb-2">
-                            <li class="nav-item">
+                            <li>
                                 <a class="nav-link"  href="{{ url('videos/create') }}">
                                     <i class="fas fa-photo-video"></i>
                                     Novo Vídeo
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li>
                                 <a class="nav-link"  href="{{ url('videos') }}">
                                     <i class="fas fa-photo-video"></i>
                                     Meus Vídeos
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li>
                                 <a class="nav-link"  href="{{ url('users/list') }}">
                                      <i class="fas fa-users text-light"></i>
                                     Alunos

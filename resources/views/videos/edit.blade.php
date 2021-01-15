@@ -12,7 +12,7 @@
 
 		<div class="mb-3">
 			<label for="iTitulo" class="form-label">Título</label>
-			<input type="text" class="form-control" id="iTitulo" required minlength="10" name="title" value="{{ $video->title }}"/>
+			<input type="text" class="form-control" id="iTitulo" required minlength="10" name="title" value="{{ $video->title }}" maxlength="200"/>
 		</div>
 
 		<div class="mb-3">

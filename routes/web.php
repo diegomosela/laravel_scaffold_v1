@@ -35,8 +35,8 @@ Route::middleware('sessionauth')->group(function () {
 
 	// - - - - - - - - - - - - - - - - - - - - - 
 	Route::prefix('users')->group(function () {
-		//Route::get('/edit',  							[UsersController::class, 'edit']);
-		//Route::post('/update',  						[UsersController::class, 'update']);
+		Route::get('/edit',  							[UsersController::class, 'edit']);
+		Route::post('/update',  						[UsersController::class, 'update']);
 	});
 
 	// - - - - - - - - - - - - - - - - - - - - - -

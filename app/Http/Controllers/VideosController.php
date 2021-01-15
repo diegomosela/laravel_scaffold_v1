@@ -47,7 +47,7 @@ class VideosController extends Controller
     public function store(Request $r) {
 
         $rules = [
-            'title'             => 'required|min:10',
+            'title'             => 'required|min:10|max:200',
             'youtube'           => 'required|url',
             'description'       => 'required',
         ];
@@ -107,7 +107,7 @@ class VideosController extends Controller
     public function update(Request $r, $id) {
 
         $rules = [
-            'title'             => 'required|min:10',
+            'title'             => 'required|min:10|max:200',
             'youtube'           => 'required|url',
             'description'       => 'required',
         ];

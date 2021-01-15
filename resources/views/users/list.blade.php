@@ -1,6 +1,21 @@
 @extends($template)
 
 @section('content')
+
+	<div class="row">
+		<div class="col-12 col-md-6 col-lg-3">
+			<form method="get" class="form-inline row">
+				<div class="col">
+  					<input type="text" class="form-control mb-2 mr-sm-2" name="search" placeholder="Pesquisar aluno..." value="{{ $r->search }}">
+  				</div>
+  				<div class="col-auto">
+  				 	<button type="submit" class="btn btn-primary mb-2">Buscar</button>
+  				</div>
+  			</form>
+		</div>
+	</div>
+
+	<hr/>
 	
 	<div class="row">
 		
