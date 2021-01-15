@@ -24,7 +24,7 @@
 - Use "npm install"
 - Configure your database and smtp connection on ".env" file (./.env)
 - Open your terminal and execute the migration: php artisan migrate
--- Alternative: import database file in your MySQL database
+- Alternative: import database file in your MySQL database
 - Configure a [Sendblue - API KEY v3](https://developers.sendinblue.com/docs/getting-started) to send emails in your .env
 ###### If you don't find the ".env" file, rename ".env.example" to ".env"
 ---
