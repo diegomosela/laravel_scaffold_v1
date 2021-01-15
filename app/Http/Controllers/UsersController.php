@@ -56,15 +56,7 @@ class UsersController extends Controller
                 if ( Hash::check($r->password, $user->password) ) {
 
                     // Cria a sessão
-                    session([
-                        'user' => [
-                            'id'        => $user->id,
-                            'role'      => $user->role_id,
-                            'name'      => $user->name,
-                            'username'  => $user->username,
-                            'email'     => $user->email
-                        ]
-                    ]);
+                    $this->session_create( $user );
 
                     return $this->resp(true, 'acesso realizado com sucesso', 'dashboard');
 
@@ -115,7 +107,7 @@ class UsersController extends Controller
         $validator = Validator::make($r->all(), $rules);
 
         // validator - laravel
-        if (isset($validator) && $validator->fails()->first()) {
+        if (isset($validator) && $validator->fails() ) {
 
             return $this->resp(false, $validator->errors()->first(), 400);
 
@@ -133,15 +125,7 @@ class UsersController extends Controller
             if( $user->save() ) {
                 
                 // Cria a sessão
-                session([
-                    'user' => [
-                        'id'        => $user->id,
-                        'role'      => $user->role_id,
-                        'name'      => $user->name,
-                        'username'  => $user->username,
-                        'email'     => $user->email
-                    ]
-                ]);
+                $this->session_create( $user );
                 
                 return $this->resp(true, 'conta criada com sucesso', 'dashboard');
 
@@ -203,15 +187,7 @@ class UsersController extends Controller
             if( $user->save() ) {
                 
                 // Atualiza a sessão
-                session([
-                    'user' => [
-                        'id'        => $user->id,
-                        'role'      => $user->role_id,
-                        'name'      => $user->name,
-                        'username'  => $user->username,
-                        'email'     => $user->email
-                    ]
-                ]);
+                $this->session_create( $user );
                 
                 return $this->resp(true, 'conta atualizada com sucesso', 'users/edit');
 
@@ -377,5 +353,28 @@ class UsersController extends Controller
 
         return $this->load_view('users.list', $data);
 
+    }
+
+    /*
+    *
+    * P R I V A T E S 
+    *
+    */
+
+    /**
+     * Cria ou atualiza a sessão do usuário
+     * @param object $user dados do usuário
+     */
+    private function session_create( $user ) {
+
+        return session([
+            'user' => [
+                'id'        => $user->id,
+                'role'      => $user->role_id,
+                'name'      => $user->name,
+                'username'  => $user->username,
+                'email'     => $user->email
+            ]
+        ]);
     }
 }
